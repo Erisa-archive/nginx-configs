@@ -1,0 +1,57 @@
+server {
+    if ($host = paste.erisa.moe) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot#
+
+
+    listen 80;
+    listen [::]:80;
+    server_name paste.erisa.moe;
+
+    client_max_body_size 100M;
+
+    #Headers
+    add_header X-Content-Type-Options nosniff;
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Robots-Tag none;
+
+    location / {
+	deny 60.191.38.77;
+        include /home/erisa/torlist.txt;
+        proxy_pass http://127.0.0.1:8080/;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass_header X-Transmission-Session-Id;
+    }
+
+
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name paste.erisa.moe;
+
+    client_max_body_size 100M;
+
+
+    #Headers
+    add_header X-Content-Type-Options nosniff;
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Robots-Tag none;
+
+    location / {
+        include /home/erisa/torlist.txt;
+        proxy_pass http://127.0.0.1:8080/;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass_header X-Transmission-Session-Id;
+    }
+    ssl_certificate /etc/letsencrypt/live/paste.erisa.moe/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/paste.erisa.moe/privkey.pem; # managed by Certbot
+
+
+}
+
