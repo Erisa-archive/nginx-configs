@@ -3,6 +3,7 @@
 !.gitignore
 
 !conf.d
+!confs
 !certs
 !sites-available
 
