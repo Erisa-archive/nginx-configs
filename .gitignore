@@ -5,3 +5,8 @@
 !conf.d
 !certs
 !sites-available
+
+!keys
+!keys/.gitkeep
+keys/*
+
