@@ -11,3 +11,6 @@
 !keys/.gitkeep
 keys/*
 
+!secrets
+!secrets/.gitkeep
+secrets/*
