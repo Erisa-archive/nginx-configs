@@ -5,7 +5,7 @@
 !conf.d
 !confs
 !certs
-!sites-available
+!erisa-available
 
 !keys
 !keys/.gitkeep
